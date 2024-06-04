@@ -1,0 +1,20 @@
+<html>
+<head>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Bluugo Test App</h1>
+
+    <h3>Upload JSON</h3>
+
+    <form action="/upload" method="post">
+        <input type="file" id="myFile" name="filename">
+        <button type="button" onclick="uploadFile()">Send</button>
+    </form>
+
+    <table id="myTable" onload="getData()">
+
+    </table>
+</body>
+<script src="index.js" type="text/javascript"></script>
+</html>

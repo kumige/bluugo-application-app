@@ -1,0 +1,26 @@
+{
+  "name": "bluugo",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "compilerOptions": {
+    "esModuleInterop": true
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.19.2",
+    "sqlite3": "^5.1.7",
+    "ts-node": "^10.9.2"
+  },
+  "devDependencies": {
+    "tsx": "^4.11.2",
+    "typescript": "^5.4.5"
+  }
+}
