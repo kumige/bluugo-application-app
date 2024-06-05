@@ -16,6 +16,7 @@ app.use(express.static(__dirname + '/public'));
 export const db = new sqlite3.Database('db')
 db.run(`
   CREATE TABLE IF NOT EXISTS car_rejections (
+    id INTEGER PRIMARY KEY,
     model_year TEXT,
     make TEXT,
     model TEXT,
