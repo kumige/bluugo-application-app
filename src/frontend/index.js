@@ -1,7 +1,19 @@
-function uploadFile() {
+async function uploadFile() {
     const file = document.getElementById('myFile').files[0]
-    console.log('uploadFile', file);
-    fetch('upload', { method: 'POST', body: file })
+    const error = document.getElementById('fileError')
+    if (file) {
+        error.className = 'error hidden'
+
+        const res = await fetch('upload', { method: 'POST', body: file })
+        console.log(res);
+        if (res.status == 200) {
+            alert('File uploaded succesfully')
+            getData()
+        } else alert('Something went wrong')
+
+    } else {
+        error.className = 'error visible'
+    }
 }
 
 async function getData(event) {

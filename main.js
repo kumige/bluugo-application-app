@@ -42,7 +42,6 @@ app.get('/index.js', function (req, res) {
 
 app.post('/upload', jsonParser, async function (req, res) {
     const response = await jsonUpload(req)
-    console.log('upload res', response);
     res.json(response);
 })
 
