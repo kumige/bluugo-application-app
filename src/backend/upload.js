@@ -1,7 +1,9 @@
 import { db } from "../../main.js";
+
 /**
- * @typedef req Request
- * @param {*} req 
+ * Uploads json data to database
+ * @param {Request} req 
+ * @returns 
  */
 export async function jsonUpload(req) {
     if (req.body == null) {
@@ -9,8 +11,6 @@ export async function jsonUpload(req) {
     }
 
     const [existingRows, newRows] = await checkRows(req.body)
-    console.log('existingRows', existingRows);
-    console.log('newRows', newRows);
 
     insertNewRows(formatJsonForInsert(newRows))
     updateExistingRows(formatJsonForUpdate(existingRows))
@@ -18,7 +18,11 @@ export async function jsonUpload(req) {
     return { status: 'ok', statusCode: '201' }
 }
 
-// Checks if rows exist in db
+/**
+ * Checks whether the JSON objects exist in the database and separates them from new objects
+ * @param {JSON} data 
+ * @returns [existingRows: JSON, newRows: JSON]
+ */
 async function checkRows(data) {
     let existingRows = []
     let newRows = []
@@ -44,7 +48,6 @@ async function checkRows(data) {
                     console.error(err.message);
                     return reject(err);
                 }
-                console.log('row', row);
                 if (result) {
                     existingRows.push(row);
                 } else {
@@ -60,6 +63,10 @@ async function checkRows(data) {
     return [existingRows, newRows]
 }
 
+/**
+ * Inserts new rows to database
+ * @param {Array} data 
+ */
 function insertNewRows(data) {
     if (data.length > 0) {
 
@@ -81,7 +88,10 @@ function insertNewRows(data) {
     }
 
 }
-
+/**
+ * Updates existing rows in database
+ * @param {Array} data 
+ */
 function updateExistingRows(data) {
     if (data.length > 0) {
 
@@ -108,12 +118,15 @@ function updateExistingRows(data) {
             });
         });
 
-
     }
 
 }
 
-// Items ordered for update statement
+/**
+ * Formats json array to suitable form for db update
+ * @param {JSON[]} json 
+ * @returns Array
+ */
 function formatJsonForUpdate(json) {
     return json.map(item => {
         return [
@@ -129,7 +142,11 @@ function formatJsonForUpdate(json) {
 }
 
 
-// Items ordered for insert statement
+/**
+ * Formats json array to suitable form for db insert
+ * @param {JSON[]} json 
+ * @returns Array
+ */
 function formatJsonForInsert(json) {
     return json.map(item => {
         return [
