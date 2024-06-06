@@ -48,7 +48,8 @@ app.post('/upload', jsonParser, async function (req, res) {
 
 
 app.get('/data', async function (req, res) {
-    const data = await getData('', 0, 50, (err, data) => {
+    const filterString = req.query.q ? req.query.q : ''
+    const data = await getData(filterString, 0, 50, (err, data) => {
         if (err) {
             console.error('Error:', err);
         } else {

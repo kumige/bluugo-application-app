@@ -4,11 +4,10 @@ function uploadFile() {
     fetch('upload', { method: 'POST', body: file })
 }
 
-async function getData() {
-    const res = await fetch('/data')
-    const data = await res.json()
+async function getData(event) {
+    const res = await fetch('/data?' + new URLSearchParams({ q: event ? event.target.value : '' }))
     const table = document.getElementById('myTable')
-    updateTable(table, data)
+    updateTable(table, await res.json())
 }
 
 function updateTable(table, data) {
@@ -36,8 +35,8 @@ function updateTable(table, data) {
                 <td> ${item.reason_3} </td>
             </tr>
         `
-       tableHTML = tableHTML.concat(tableRow) 
-    });    
+        tableHTML = tableHTML.concat(tableRow)
+    });
 
     table.innerHTML = tableHTML
 }

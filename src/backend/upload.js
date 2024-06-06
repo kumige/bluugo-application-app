@@ -36,6 +36,8 @@ async function checkRows(data) {
     `);
 
     const checkRow = (row) => {
+
+        // Have to do this promise stuff because sqlite3 works with callbacks and this must finish before updating or inserting new rows
         return new Promise((resolve, reject) => {
             preparedStatement.get([row.model_year, row.make, row.model], (err, result) => {
                 if (err) {
